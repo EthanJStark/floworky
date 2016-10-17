@@ -35,4 +35,15 @@ router.post( '/:id/completed', ( request, response ) => {
     .catch( error => response.json({ success: false, id, message: error.message }))
 })
 
+router.post( '/:id/edit', ( request, response ) => {
+  const Item = request.app.get( 'models' ).Item
+
+  const { id } = request.params
+  const { title, description } = request.body
+
+  Item.update({ title, description }, { where: { id, user_id: request.user.id }})
+    .then( result => response.json({ success: true, id }))
+    .catch( error => response.json({ message: error.message }))
+})
+
 module.exports = router

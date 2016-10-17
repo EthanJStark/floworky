@@ -2,9 +2,15 @@ extends ../layouts/authenticated-layout
 
 mixin display( nodes, depth )
   each entry in nodes
-    .item(data-id=entry.id, class={completed: entry.completed})
-      .title(data-id=entry.id, data-completed=entry.completed)= entry.title
-      .description= entry.description
+    .item(data-id=entry.id)
+      .heading(data-id=entry.id, data-completed=entry.completed)
+        .checkmark.glyphicon.glyphicon-ok(aria-hidden='true', data-id=entry.id, data-completed=entry.completed)
+        .title(data-id=entry.id, data-completed=entry.completed, class={completed: entry.completed})
+          span=entry.title
+          input.updateTitle.hidden(data-id=entry.id, type='text', name='updateTitle', value=entry.title)
+      .description
+          span=entry.description
+          input.updateDescription.hidden(data-id=entry.id, type='text', name='updateDescription', value=entry.description)
       .children
         +display( entry.children, depth + 1 )
 

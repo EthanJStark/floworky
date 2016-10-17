@@ -17,7 +17,19 @@
   padding-left: 7px;
 }
 
-.item.completed > .title {
+.title.completed > span, .title.completed > input {
   text-decoration: line-through;
   color: #777;
+}
+
+.heading > .title {
+  display: inline;
+}
+
+.heading {
+  display: inline;
+}
+
+.hidden {
+  display: none;
 }
