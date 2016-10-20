@@ -1,4 +1,4 @@
-const fetchParams = {
+const FETCH_PARAMS = {
   method: 'post',
   headers: {
     'Accept': 'application/json',
@@ -7,14 +7,8 @@ const fetchParams = {
   credentials: 'include'
 }
 
-const params = completed =>
-  Object.assign( {}, fetchParams, { body: JSON.stringify({ completed }) })
-
-const params2 = title =>
-  Object.assign( {}, fetchParams, { body: JSON.stringify({ title }) })
-
-const params3 = description =>
-  Object.assign( {}, fetchParams, { body: JSON.stringify({ description }) })
+const params = data =>
+  Object.assign( {}, FETCH_PARAMS, { body: JSON.stringify( data ) } )
 
 $(document).ready( () => {
   $('.updateTitle').keypress( event => {
@@ -23,7 +17,7 @@ $(document).ready( () => {
 
     if( event.charCode === 13 ) {
       let updatedTitle = element[0].value
-      fetch( `/items/${id}/edit`, params2( updatedTitle ))
+      fetch( `/items/${id}/edit`, params( { title: updatedTitle } ) )
       .then( result => result.json() )
       .then( json => {
         if( json.success ) {
@@ -49,12 +43,12 @@ $(document).ready( () => {
 
     if( event.charCode === 13 ) {
       let updatedDescription = element[0].value
-      fetch( `/items/${id}/edit`, params3( updatedDescription ))
+      fetch( `/items/${id}/edit`, params( { description: updatedDescription } ) )
       .then( result => result.json() )
       .then( json => {
         if( json.success ) {
           let span = element.prev()
-          $( span[0] ).html(updatedDescription)
+          $( span[0] ).html( updatedDescription )
           element.addClass( 'hidden')
           $( span ).removeClass( 'hidden' )
         }
@@ -74,7 +68,7 @@ $(document).ready( () => {
     const id = element.data( 'id' )
     const completed = ! element.data( 'completed' )
 
-    fetch( `/items/${id}/completed`, params( completed ))
+    fetch( `/items/${id}/completed`, params({ completed: completed } ) )
     .then( result => result.json() )
     .then( json => {
       if( json.success ) {
