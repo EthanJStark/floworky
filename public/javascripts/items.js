@@ -87,4 +87,14 @@ $(document).ready( () => {
       }
     })
   })
+
+  $( '.heading' ).hover( event => {
+    const element = $( event.target )
+    $( '.plusMinus' ).addClass( 'hidden2' )
+  })
+
+  $( '.plusMinus' ).click( event => {
+    const element = $( event.target )
+    parent = $( element.parent() )
+  })
 })
