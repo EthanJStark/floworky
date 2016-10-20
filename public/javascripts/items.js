@@ -90,6 +90,7 @@ $(document).ready( () => {
 
   $( '.heading' ).hover( event => {
     const element = $( event.target )
+    
     $( '.plusMinus' ).addClass( 'hidden2' )
   })
 
