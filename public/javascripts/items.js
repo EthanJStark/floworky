@@ -10,34 +10,38 @@ const FETCH_PARAMS = {
 const params = data =>
   Object.assign( {}, FETCH_PARAMS, { body: JSON.stringify( data ) } )
 
+const titleEdited = event => {
+  element = $( event.target )
+  const id = element.data( 'id' )
+
+  if( event.charCode === 13 ) {
+    let updatedTitle = element[0].value
+    fetch( `/items/${id}/edit`, params( { title: updatedTitle } ) )
+    .then( result => result.json() )
+    .then( json => {
+      if( json.success ) {
+        let span = element.prev()
+        $( span[0] ).html(updatedTitle)
+        element.addClass( 'hidden')
+        $( span ).removeClass( 'hidden' )
+      }
+    })
+  }
+}
+
+const titleClicked = event => {
+  const element = $( event.target )
+  $( element[0] ).addClass( 'hidden' )
+  let input = element.next()
+  $( input[0]).removeClass( 'hidden' )
+}
+
 $(document).ready( () => {
-  $('.updateTitle').keypress( event => {
-    element = $( event.target )
-    const id = element.data( 'id' )
+  $('.edit-title').keypress( titleEdited )
 
-    if( event.charCode === 13 ) {
-      let updatedTitle = element[0].value
-      fetch( `/items/${id}/edit`, params( { title: updatedTitle } ) )
-      .then( result => result.json() )
-      .then( json => {
-        if( json.success ) {
-          let span = element.prev()
-          $( span[0] ).html(updatedTitle)
-          element.addClass( 'hidden')
-          $( span ).removeClass( 'hidden' )
-        }
-      })
-    }
-  })
+  $( '.title > span' ).click( titleClicked )
 
-  $( '.title > span' ).click( event => {
-    const element = $( event.target )
-    $( element[0] ).addClass( 'hidden' )
-    let input = element.next()
-    $( input[0]).removeClass( 'hidden' )
-  })
-
-  $('.updateDescription').keypress( event => {
+  $('.edit-description').keypress( event => {
     element = $( event.target )
     const id = element.data( 'id' )
 

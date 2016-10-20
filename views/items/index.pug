@@ -7,10 +7,10 @@ mixin display( nodes, depth )
         .checkmark.glyphicon.glyphicon-ok(aria-hidden='true', data-id=entry.id, data-completed=entry.completed)
         .title(data-id=entry.id, data-completed=entry.completed, class={completed: entry.completed})
           span=entry.title
-          input.updateTitle.hidden(data-id=entry.id, type='text', name='updateTitle', value=entry.title)
+          input.edit-title.hidden(data-id=entry.id, type='text', name='edit-title', value=entry.title)
       .description
           span=entry.description
-          input.updateDescription.hidden(data-id=entry.id, type='text', name='updateDescription', value=entry.description)
+          input.edit-description.hidden(data-id=entry.id, type='text', name='edit-description', value=entry.description)
       .children
         +display( entry.children, depth + 1 )
 
