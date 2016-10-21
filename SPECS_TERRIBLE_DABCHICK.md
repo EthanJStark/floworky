@@ -2,7 +2,7 @@
 
 Complete the following tickets:
 
-- [ ] As a user, I want to be able to edit an item's title and description, so that I can correct errors in an item.
+- [X] As a user, I want to be able to edit an item's title and description, so that I can correct errors in an item.
 - [ ] As a user, I want to be able to toggle the display of children items in the UI, so that I can focus my attention on a given set of items in the current display.
 
 
